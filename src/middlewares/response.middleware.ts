@@ -12,7 +12,7 @@ export function response({ action, server }: Params) {
   return async (ctx: any) => {
     try {
       const data = await action(ctx);
-      ctx.body = data ? { success: true, data } : { success: true };
+      ctx.body = data || {};
     } catch (e) {
       const params = JSON.stringify(ctx.params);
       const uid = get(ctx, `session.${server}.id`) || '-';
