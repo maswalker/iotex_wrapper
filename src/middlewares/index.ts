@@ -4,4 +4,3 @@ export * from './logger.middleware';
 export * from './real_ip.middleware';
 export * from './response.middleware';
 export * from './param_validate.middleware';
-export * from './session.middleware';

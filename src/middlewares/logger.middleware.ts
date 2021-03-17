@@ -4,7 +4,7 @@ import { logger as wlog } from '@common/utils';
 import { NODE_ENV } from '@config/env';
 
 interface Opts {
-  server: 'admin' | 'api' | 'agent';
+  server: 'admin' | 'api';
 }
 
 const debug = NODE_ENV == 'development';

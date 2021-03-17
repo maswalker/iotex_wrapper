@@ -1,7 +1,5 @@
-import { WhereValue } from 'sequelize';
+
 export * from './router.interface';
-export * from './jwt.interface';
-export * from './field.interface';
 
 export interface Pagination {
   page?: number;
