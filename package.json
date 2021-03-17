@@ -33,5 +33,17 @@
     "@types/lodash": "^4.14.168",
     "@types/module-alias": "^2.0.0",
     "typescript": "^4.2.3"
+  },
+  "_moduleAliases": {
+    "@store": "dist/store",
+    "@common": "dist/common",
+    "@controller": "dist/controller",
+    "@service": "dist/service",
+    "@middlewares": "dist/middlewares",
+    "@lib": "dist/lib",
+    "@config": "dist/config",
+    "@models": "dist/models",
+    "@routes": "dist/routes",
+    "@helpers": "dist/helpers"
   }
 }
