@@ -1,13 +1,28 @@
 import _ from 'lodash';
 import moment from 'moment';
 import Antenna from 'iotex-antenna';
+import { fromString, fromBytes } from 'iotex-antenna/crypto/address';
 import BaseService from './base.service';
 import { Assert, Exception } from '@common/exceptions';
 import { Code } from '@common/enums';
 
-const antenna = new Antenna("https://api.iotex.one");
+const antenna = new Antenna("https://api.iotex.one:443");
 
 class ApiService extends BaseService {
+
+  private toEth(address: string) {
+    const a = fromString(address);
+    return a.stringEth();
+  }
+
+  private fromEth(address: string) {
+    if (address.startsWith('0x'))
+      address = address.substring(2);
+
+    const bytes = Buffer.from(address, 'hex');
+    const a = fromBytes(bytes);
+    return a.string();
+  }
 
   public async getBlockNumber() {
     const ret = await antenna.iotx.getChainMeta({});
@@ -15,7 +30,7 @@ class ApiService extends BaseService {
   }
 
   public async getBalance(address: string) {
-    const ret = await antenna.iotx.getAccount({ address });
+    const ret = await antenna.iotx.getAccount({ address: this.fromEth(address) });
     return _.get(ret, 'accountMeta.balance', 0);
   }
 
@@ -35,7 +50,7 @@ class ApiService extends BaseService {
       logsBloom: '',
       transactionsRoot: b.txRoot,
       stateRoot: '',
-      miner: b.producerAddress,
+      miner: this.toEth(b.producerAddress),
       difficulty: '',
       totalDifficulty: '',
       size: b.numActions,
