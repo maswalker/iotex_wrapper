@@ -9,7 +9,7 @@ const routes: Route[] = [
     name: 'root',
     path: '/',
     method: RequestMethod.POST,
-    action: api.apiController.root
+    action: api.apiController.entry
   }
 ];
 
