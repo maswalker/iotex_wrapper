@@ -17,11 +17,11 @@ class ApiController extends BaseController {
     if (method == 'eth_chainId') {
       result = '0x3e8';
     } else if (method == 'eth_blockNumber') {
-      result = apiService.getBlockNumber();
+      result = await apiService.getBlockNumber();
     } else if (method == 'eth_getBlockByNumber') {
-      result = apiService.getBlockByNumber(params[0]);
+      result = await apiService.getBlockByNumber(params[0]);
     } else if (method == 'eth_getBalance') {
-      result = apiService.getBalance(params[0]);
+      result = await apiService.getBalance(params[0]);
     }
 
     _.assign(ret, { result });
