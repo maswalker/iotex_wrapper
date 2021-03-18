@@ -1,7 +1,9 @@
+var BN = require('bn.js');
+var numberToBN = require('number-to-bn');
 import _ from 'lodash';
 import moment from 'moment';
 import Antenna from 'iotex-antenna';
-import { fromString, fromBytes } from 'iotex-antenna/crypto/address';
+import { fromString, fromBytes } from 'iotex-antenna/lib/crypto/address';
 import BaseService from './base.service';
 import { Assert, Exception } from '@common/exceptions';
 import { Code } from '@common/enums';
@@ -24,6 +26,16 @@ class ApiService extends BaseService {
     return a.string();
   }
 
+  private toBN(v: number | string) {
+    return numberToBN(v);
+  }
+
+  private numberToHex(v: number | string) {
+    const n = this.toBN(v);
+    const result = n.toString(16);
+    return n.lt(new BN(0)) ? '-0x' + result.substr(1) : '0x' + result;
+  } 
+
   public async getBlockNumber() {
     const ret = await antenna.iotx.getChainMeta({});
     return _.get(ret, 'chainMeta.height', 0);
@@ -31,7 +43,9 @@ class ApiService extends BaseService {
 
   public async getBalance(address: string) {
     const ret = await antenna.iotx.getAccount({ address: this.fromEth(address) });
-    return _.get(ret, 'accountMeta.balance', 0);
+    
+    const b = _.get(ret, 'accountMeta.balance', 0);
+    return this.numberToHex(b);
   }
 
   public async getBlockByNumber(block_id: number) {
