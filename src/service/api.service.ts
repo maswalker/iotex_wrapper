@@ -77,6 +77,17 @@ class ApiService extends BaseService {
     };
   }
 
+  public async gasPrice() {
+    const { gasPrice } = antenna.iotx.suggestGasPrice({});
+    return gasPrice;
+  }
+
+  public async getTransactionCount(address: string, block_id: string) {
+    const ret = await antenna.iotx.getAccount({ address: this.fromEth(address) });    
+    const b = _.get(ret, 'accountMeta.nonce', 0);
+    return b;
+  }
+
 }
 
 export const apiService = new ApiService();

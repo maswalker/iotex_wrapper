@@ -22,6 +22,10 @@ class ApiController extends BaseController {
       result = await apiService.getBlockByNumber(params[0]);
     } else if (method == 'eth_getBalance') {
       result = await apiService.getBalance(params[0]);
+    } else if (method == 'eth_gasPrice') {
+      result = await apiService.gasPrice();
+    } else if (method == 'eth_getTransactionCount') {
+      result = await apiService.getTransactionCount(params[0], params[1]);
     }
 
     _.assign(ret, { result });
