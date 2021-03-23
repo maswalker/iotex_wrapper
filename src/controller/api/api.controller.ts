@@ -15,7 +15,7 @@ class ApiController extends BaseController {
     let result;
 
     if (method == 'eth_chainId') {
-      result = '0x3e8';
+      result = '0x1';
     } else if (method == 'eth_blockNumber') {
       result = await apiService.getBlockNumber();
     } else if (method == 'eth_getBlockByNumber') {

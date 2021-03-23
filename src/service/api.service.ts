@@ -78,7 +78,7 @@ class ApiService extends BaseService {
   }
 
   public async gasPrice() {
-    const { gasPrice } = antenna.iotx.suggestGasPrice({});
+    const { gasPrice } = await antenna.iotx.suggestGasPrice({});
     return gasPrice;
   }
 
