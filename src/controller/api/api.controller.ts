@@ -26,6 +26,8 @@ class ApiController extends BaseController {
       result = await apiService.gasPrice();
     } else if (method == 'eth_getTransactionCount') {
       result = await apiService.getTransactionCount(params[0], params[1]);
+    } else if (method == 'eth_sendRawTransaction') {
+      result = await apiService.sendRawTransaction(params[0]);
     }
 
     _.assign(ret, { result });

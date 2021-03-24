@@ -88,6 +88,11 @@ class ApiService extends BaseService {
     return b;
   }
 
+  public async sendRawTransaction(data: string) {
+    const ret = await antenna.iotx.sendRawTransaction({ chainID: 1, data });
+    return ret;
+  }
+
 }
 
 export const apiService = new ApiService();
